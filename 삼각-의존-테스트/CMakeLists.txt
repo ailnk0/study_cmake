@@ -12,4 +12,4 @@ endif()
 project ("CMakeProject1")
 
 # Include sub-projects.
-add_subdirectory ("CMakeProject")
+add_subdirectory ("MainProject")

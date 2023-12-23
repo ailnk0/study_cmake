@@ -1,0 +1,2 @@
+add_subdirectory(BaseProject)
+add_subdirectory(SubProject)
