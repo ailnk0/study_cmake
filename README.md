@@ -265,6 +265,21 @@ cmake ..
 cmake --build .
 ```
 
+### 3.1.1. CMake 옵션
+
+```sh
+-B <dir>  # 빌드 디렉토리 지정
+-j <n>  # 병렬 빌드
+-G <generator>  # 빌드 시스템 지정
+-D <var>=<value>  # 변수 설정
+--build <dir>  # 빌드 디렉토리 지정
+--target <target>  # 특정 타겟만 빌드
+--config <config>  # 빌드 타입 지정
+--fresh # CMakeCache.txt를 새로 생성
+--install-prefix <dir>  # 설치 경로 지정
+--toolchain <file>  # 툴체인 파일 지정
+```
+
 ## 3.2. 설치 (Install)
 
 ## 3.2.1. 설정
