@@ -9,7 +9,32 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project ("CMakeProject1")
+project(CMakeProject1)
 
 # Include sub-projects.
-add_subdirectory ("MainProject")
+add_subdirectory(MainProject)
+
+# Install을 위한 GNUInstallDirs 모듈 로드
+include(GNUInstallDirs)
+
+# Packaging를 위해 install target 설정
+install(TARGETS MainProject EXPORT installing-config
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+# Packaging을 위한 시스템 라이브러리 모듈 로드
+include(InstallRequiredSystemLibraries)
+
+# Packaging을 위한 CPack 변수 설정
+set(CPACK_PACKAGE_VENDOR "study_cmake")
+set(CPACK_PACKAGE_VERSION_MAJOR "0")
+set(CPACK_PACKAGE_VERSION_MINOR "1")
+set(CPACK_PACKAGE_VERSION_PATCH "0")
+set(CPACK_GENERATOR "STGZ;ZIP")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+
+# Packaging을 위한 CPack 모듈 로드
+include(CPack)
