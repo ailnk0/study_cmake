@@ -358,3 +358,81 @@ cmake --build . --config Release
 # 패키징
 cpack
 ```
+
+# 4. 외부 라이브러리 관리
+
+## 4.1. CMake와 vcpkg
+
+기본적으로 vcpkg로 설치한 라이브러리는 CMake에서 자동으로 찾아주며, 설치시 사용 방법을 출력해준다.
+
+```sh
+# cmake 생성 시 vcpkg.cmake을 toolchain으로 지정
+# 아래 2가지 중에서 한 가지 방법을 사용한다.
+cmake . --toolchain=[vcpkg 설치 경로]/scripts/buildsystems/vcpkg.cmake
+cmake . -DCMAKE_TOOLCHAIN_FILE=[vcpkg 설치 경로]/scripts/buildsystems/vcpkg.cmake
+```
+
+```cmake
+# 예시
+find_package(fmt CONFIG REQUIRED)
+target_link_libraries(main PRIVATE fmt::fmt)
+```
+
+## 4.2. include
+
+```cmake
+# 모듈 로드
+include(CheckIncludeFileCXX)
+
+# C++ 파일이 있는지 검사
+check_include_file_cxx("filesystem" CXX_FILESYSTEM_HAVE_HEADER)
+```
+
+## 4.3. FetchContent
+
+```cmake
+# FetchContent 모듈 로드
+include(FetchContent)
+
+# 컨텐츠를 Git에서 가져오기
+FetchContent_Declare(spdlog
+  GIT_REPOSITORY https://github.com/gabime/spdlog.git
+  GIT_TAG 706ad7059125f32158dad4441938c08fa910f143)
+
+# 컨텐츠를 URL 다운로드를 통해 가져오기
+FetchContent_Declare(poco
+  URL https://github.com/pocoproject/poco/archive/refs/tags/poco-1.12.4-release.tar.gz
+  URL_HASH MD5=0ca5d1e2f2a5e8ba2f0a83c2e6df374a
+  DOWNLOAD_EXTRACT_TIMESTAMP 20230316091300
+)
+
+# 선언된 컨텐츠들을 프로젝트에서 사용할 수 있도록 준비
+FetchContent_MakeAvailable(spdlog poco)
+
+# 타겟을 링킹할 때 필요한 타겟이나 라이브러리를 지정
+target_link_libraries(foo
+PRIVATE
+  spdlog::spdlog
+  Poco::Net
+)
+```
+
+# 5. 참고
+
+## 5.1. GLOB
+
+편의 기능
+
+```cmake
+# 모든 cpp 파일 목록 생성
+file(GLOB FILES *.cpp)
+
+# 모든 cpp 파일을 foo라는 실행 파일로 빌드
+add_executable(foo ${FILES})
+```
+
+하지만 GLOB의 치명적인 단점
+
+CMake가 파일 목록이 변경되었는지 알 수 없다. 자동으로 파일 목록을 갱신하지 않기 때문에 CMakeCache.txt를 수동으로 삭제해야 한다. 만약 사용자가 CMakeCache.txt를 삭제하지 않으면 새로운 파일이 추가되었는데도 불구하고 빌드되지 않거나 빌드 되더라도 예상치 못한 오류가 발생할 수 있다.
+
+실수가 자주 발생할 수 있기 때문에 GLOB을 사용하지 않는 것이 좋다.
