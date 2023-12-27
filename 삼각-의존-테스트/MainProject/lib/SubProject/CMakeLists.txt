@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.8)
 
 project(SubProject)
 
-add_library(SubProject STATIC
+add_library(SubProject SHARED
   src/SubProject.cpp
 )
 
@@ -11,6 +11,11 @@ PUBLIC
   include
 PRIVATE
   src
+)
+
+target_compile_definitions(SubProject 
+PRIVATE
+  SUBPROJECT_EXPORTS
 )
 
 target_link_libraries(SubProject

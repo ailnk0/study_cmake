@@ -24,3 +24,14 @@ void BaseProject::checkDef() {
 }
 
 }  // namespace baseproject
+
+baseproject::BaseProject* CreateBaseProject() {
+  return new baseproject::BaseProject();
+}
+
+void DestroyBaseProject(baseproject::BaseProject* baseProject) {
+  if (baseProject) {
+    delete baseProject;
+    baseProject = nullptr;
+  }
+}

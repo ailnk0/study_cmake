@@ -18,13 +18,13 @@ add_subdirectory(MainProject)
 include(GNUInstallDirs)
 
 # Packaging를 위해 install target 설정
-install(TARGETS MainProject EXPORT installing-config
+install(TARGETS MainProject SubProject BaseProject
+  EXPORT installing-config
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
-
 # Packaging을 위한 시스템 라이브러리 모듈 로드
 include(InstallRequiredSystemLibraries)
 

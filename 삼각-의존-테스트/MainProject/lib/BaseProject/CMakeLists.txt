@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.8)
 
 project(BaseProject)
 
-add_library(BaseProject STATIC
+add_library(BaseProject SHARED
   src/BaseProject.cpp
 )
 
@@ -15,6 +15,7 @@ PRIVATE
 
 target_compile_definitions(BaseProject 
 PRIVATE
+  BASEPROJECT_EXPORTS
   PRIVATE_BASE_DEF
 PUBLIC
   PUBLIC_BASE_DEF

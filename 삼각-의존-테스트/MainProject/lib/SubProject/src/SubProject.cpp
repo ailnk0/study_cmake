@@ -12,8 +12,9 @@ namespace subproject {
 void SubProject::printMsg() {
   std::cout << "SubProject" << endl;
   std::cout << "SubProject can use : ";
-  baseproject::BaseProject base;
-  base.printMsg();
+  auto base = CreateBaseProject();
+  base->printMsg();
+  DestroyBaseProject(base);
 }
 
 void SubProject::checkDef() {
@@ -31,3 +32,14 @@ void SubProject::checkDef() {
 }
 
 }  // namespace subproject
+
+subproject::SubProject* CreateSubProject() {
+  return new subproject::SubProject();
+}
+
+void DestroySubProject(subproject::SubProject* obj) {
+  if (obj) {
+    delete obj;
+    obj = nullptr;
+  }
+}

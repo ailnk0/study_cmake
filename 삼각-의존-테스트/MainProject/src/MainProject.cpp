@@ -4,14 +4,16 @@
 using namespace std;
 
 int main() {
-  baseproject::BaseProject base;
-  base.printMsg();
-  base.checkDef();
+  auto base = CreateBaseProject();
+  base->printMsg();
+  base->checkDef();
+  DestroyBaseProject(base);
   cout << endl;
 
-  subproject::SubProject sub;
-  sub.printMsg();
-  sub.checkDef();
+  auto sub = CreateSubProject();
+  sub->printMsg();
+  sub->checkDef();
+  DestroySubProject(sub);
   cout << endl;
 
 #ifdef PRIVATE_BASE_DEF

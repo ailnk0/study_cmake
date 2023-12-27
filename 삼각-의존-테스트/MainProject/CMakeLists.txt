@@ -4,7 +4,6 @@
 project(MainProject)
 
 # Proejct ABI 정의
-set(CMAKE_CXX_STANDARD 20)
 if (MSVC)
   add_compile_options(/W4 /WX)
 else()
@@ -21,6 +20,12 @@ target_link_libraries(MainProject
 PRIVATE
   BaseProject
   SubProject
+)
+
+set_target_properties(MainProject BaseProject SubProject
+  PROPERTIES
+  LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
