@@ -4,13 +4,13 @@
 using namespace std;
 
 int main() {
-  auto base = new baseproject::BaseProject();
+  auto* base = new baseproject::BaseProject();
   base->printMsg();
   base->checkDef();
   delete base;
   cout << endl;
 
-  auto sub = new subproject::SubProject();
+  auto* sub = new subproject::SubProject();
   sub->printMsg();
   sub->checkDef();
   delete sub;

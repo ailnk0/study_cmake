@@ -12,7 +12,7 @@ namespace subproject {
 void SubProject::printMsg() {
   std::cout << "SubProject" << endl;
   std::cout << "SubProject can use : ";
-  auto base = new baseproject::BaseProject();
+  auto* base = new baseproject::BaseProject();
   base->printMsg();
   delete base;
 }

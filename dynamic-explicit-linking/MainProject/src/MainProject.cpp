@@ -132,7 +132,7 @@ int main() {
     return 1;
   }
   
-  auto base = loader->getLib();
+  auto* base = loader->getLib();
   base->printMsg();
   base->checkDef();
   std::cout << "DONE" << std::endl;

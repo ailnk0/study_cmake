@@ -15,7 +15,7 @@ endif()
 # 따라서 사용자 라이브러리 경로를 수동으로 설정해줘야 한다.
 # GNU가 권장하는 기본 라이브러리 경로는 lib이지만, windows dll의 경우 실행파일과 동일한 경로에 있어야 한다.
 # 간결함을 위해 플랫폼 관계 없이 라이브러리가 실행파일과 동일한 경로에 위치하도록 설정했다.
-list(APPEND CMAKE_INSTALL_RPATH ".")
+list(APPEND CMAKE_INSTALL_RPATH "$ORIGIN")
 
 # 빌드에 포함할 소스 경로 추가
 add_subdirectory(lib)
